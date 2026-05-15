@@ -1,0 +1,567 @@
+System Overview Arch:
+
+                     ┌──────────────────────────────┐
+                     │           Users              │
+                     │                              │
+                     │  Admin   Faculty   Students  │
+                     └──────────────┬───────────────┘
+                                    │
+                                    ▼
+                     ┌──────────────────────────────┐
+                     │        React SaaS UI         │
+                     │                              │
+                     │  Dashboard                   │
+                     │  Teacher Management          │
+                     │  Student Management          │
+                     │  Subject Management          │
+                     │  Room Management             │
+                     │  Timetable Viewer            │
+                     │  Analytics                   │
+                     └──────────────┬───────────────┘
+                                    │
+                              REST API Calls
+                                    │
+                                    ▼
+                     ┌──────────────────────────────┐
+                     │      Spring Boot Backend     │
+                     │                              │
+                     │  Authentication (JWT)        │
+                     │  Teacher Module              │
+                     │  Student Module              │
+                     │  Subject Module              │
+                     │  Room Module                 │
+                     │  TimeSlot Module             │
+                     │  Schedule Module             │
+                     │  AI Integration Module       │
+                     └──────────────┬───────────────┘
+                                    │
+                    ┌───────────────┴────────────────┐
+                    │                                │
+                    ▼                                ▼
+          ┌───────────────────┐           ┌────────────────────────┐
+          │      MongoDB      │           │     Python AI Engine   │
+          │                   │           │                        │
+          │ users             │           │  Genetic Algorithm     │
+          │ teachers          │           │  Constraint Solver     │
+          │ students          │           │                        │
+          │ subjects          │           │  Random Forest (ML)    │
+          │ rooms             │           │                        │
+          │ timeslots         │           │  Timetable Optimizer
+          │ schedules         │           │                        │
+          │ scheduleLogs      │           │                        │
+          └───────────────────┘           └────────────────────────┘
+
+
+ Complete system Workflow:
+
+
+Admin
+ │
+ ▼
+React Dashboard
+ │
+ ▼
+Spring Boot API
+ │
+ ├── Manage Teachers
+ ├── Manage Students
+ ├── Manage Subjects
+ ├── Manage Rooms
+ │
+ ▼
+Generate Timetable
+ │
+ ▼
+Python AI Scheduler
+ │
+ ▼
+Genetic Algorithm + Constraints
+ │
+ ▼
+Optimized Timetable
+ │
+ ▼
+Saved in MongoDB
+ │
+ ▼
+Displayed in React UI
+
+
+
+
+
+
+Overview backend arch:
+
+           React SaaS UI
+                │
+                ▼
+        Spring Boot Backend
+                │
+   ┌────────────┼────────────┐
+   │            │            │
+Authentication  MongoDB     Python AI
+(JWT Security)  Database    Scheduler
+                               │
+                        Genetic Algorithm
+                        ML Optimization
+
+
+Flow:
+User → React Dashboard → Spring Boot API → MongoDB
+                                  │
+                                  ▼
+                         Python AI Scheduler
+
+
+
+Backend layered arch:
+
+Controller Layer
+        ↓
+Service Layer
+        ↓
+Repository Layer
+        ↓
+Database (MongoDB)
+
+Example request flow:
+
+React UI
+   ↓
+TeacherController
+   ↓
+TeacherService
+   ↓
+TeacherRepository
+   ↓
+MongoDB
+
+
+
+Backend Package Arch:
+
+com.smarttimetable
+│
+├── config
+│
+├── controllers
+│     ├── AuthController
+│     ├── TeacherController
+│     ├── StudentController
+│     ├── SubjectController
+│     ├── RoomController
+│     ├── TimeSlotController
+│     ├── ScheduleController
+│     └── AiController
+│
+├── services
+│     ├── AuthService
+│     ├── TeacherService
+│     ├── StudentService
+│     ├── SubjectService
+│     ├── RoomService
+│     ├── TimeSlotService
+│     ├── ScheduleService
+│     └── AiSchedulerService
+│
+├── repositories
+│     ├── UserRepository
+│     ├── TeacherRepository
+│     ├── StudentRepository
+│     ├── SubjectRepository
+│     ├── RoomRepository
+│     ├── TimeSlotRepository
+│     └── ScheduleRepository
+│
+├── models
+│     ├── User
+│     ├── Teacher
+│     ├── Student
+│     ├── Subject
+│     ├── Room
+│     ├── TimeSlot
+│     └── Schedule
+│
+├── security
+│     ├── SecurityConfig
+│     ├── JwtAuthenticationFilter
+│     ├── JwtTokenProvider
+│     └── CustomUserDetailsService
+│
+├── ai
+│     ├── PythonProcessRunner
+│     └── AiSchedulerService
+│
+├── dto
+│     ├── LoginRequest
+│     ├── RegisterRequest
+│     └── ScheduleDTO
+│
+├── exceptions
+│     ├── GlobalExceptionHandler
+│     └── ResourceNotFoundException
+│
+└── utils
+      ├── ScheduleUtils
+      └── TimeSlotUtils
+
+
+
+      AI integration module:
+
+      This connects Spring Boot to the Python scheduler.
+
+
+      Admin clicks "Generate Timetable"
+              ↓
+      Spring Boot Controller
+              ↓
+      AiSchedulerService
+              ↓
+      Python AI API
+              ↓
+      Genetic Algorithm runs
+              ↓
+      Schedules stored in MongoDB
+
+
+
+
+      MongoDB collections in backend:
+
+      users
+      teachers
+      students
+      subjects
+      rooms
+      timeslots
+      schedules
+      scheduleLogs
+
+
+
+
+      Complete Backend Request Flow:
+
+      Example: Generate timetable
+
+      Admin Dashboard (React)
+              ↓
+      POST /AI/generate
+              ↓
+      Spring Boot Controller
+              ↓
+      AiSchedulerService
+              ↓
+      Python AI Engine
+              ↓
+      Genetic Algorithm
+              ↓
+      Schedules saved in MongoDB
+              ↓
+      React dashboard displays timetable
+
+
+
+      Database Arch:
+
+      MongoDB
+      │
+      ├── users
+      │
+      ├── teachers
+      │
+      ├── students
+      │
+      ├── subjects
+      │
+      ├── rooms
+      │
+      ├── timeslots
+      │
+      ├── schedules
+      │
+      └── scheduleLogs
+
+
+
+
+
+   Genetic Algorithm Arch:
+
+
+
+                Generate Initial Population
+                         │
+                         ▼
+                 Random Schedules
+                         │
+                         ▼
+                Evaluate Fitness
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+Teacher Conflict   Room Conflict   Availability
+ Check                Check            Check
+        │                │                │
+        └───────────────Fitness──────────┘
+                         │
+                         ▼
+                    Selection
+                         │
+                         ▼
+                     Crossover
+                         │
+                         ▼
+                     Mutation
+                         │
+                         ▼
+                Best Schedule Selected
+
+
+
+
+
+
+      UI Dashboard Arch:
+
+
+                React App
+                │
+                ├── Sidebar Navigation
+                │
+                ├── Pages
+                │     ├── Dashboard
+                │     ├── Teachers
+                │     ├── Students
+                │     ├── Subjects
+                │     ├── Rooms
+                │     ├── Timetable
+                │     └── Analytics
+                │
+                ├── Components
+                │     ├── Navbar
+                │     ├── Stat Cards
+                │     ├── Tables
+                │     └── Charts
+                │
+                └── API Service
+                       └── Spring Boot APIs
+
+
+
+
+
+
+
+                       AI Levels in the System
+
+                       Level 1 AI:
+                       Constraint rules
+                       Greedy scheduling
+
+                       Level 2 :
+                       Genetic Algorithm
+
+
+
+                       Level 3 :
+                       Random Forest
+                       Schedule prediction
+                       Room utilization prediction
+
+
+
+                       Sequence Diagram-Timetable Generation
+
+
+Admin          React UI         Spring Boot API        Python AI Engine        MongoDB
+ │                 │                   │                       │                   │
+ │ Click "Generate Timetable"         │                       │                   │
+ │───────────────►│                   │                       │                   │
+ │                │  POST /ai/generate│                       │                   │
+ │                │──────────────────►│                       │                   │
+ │                │                   │  Request data         │                   │
+ │                │                   │──────────────────────►│                   │
+ │                │                   │                       │                   │
+ │                │                   │        Fetch data     │                   │
+ │                │                   │◄──────────────────────│                   │
+ │                │                   │                       │                   │
+ │                │                   │                       │                   │
+ │                │                   │   Run Genetic Algorithm│                  │
+ │                │                   │                       │                   │
+ │                │                   │                       │ Generate schedules│
+ │                │                   │                       │──────────────────►│
+ │                │                   │                       │                   │
+ │                │                   │     Save schedules    │                   │
+ │                │                   │◄──────────────────────│                   │
+ │                │                   │                       │                   │
+ │                │   Return response │                       │                   │
+ │                │◄──────────────────│                       │                   │
+ │                │                   │                       │                   │
+ │ View timetable │                   │                       │                   │
+ │◄───────────────│                   │                       │                   │
+
+
+
+Backend Development Phase
+
+Order we will follow:
+
+1 Project Setup
+2 Package Structure
+3 MongoDB Connection
+4 User Authentication
+5 Teacher Module
+6 Student Module
+7 Subject Module
+8 Room Module
+9 TimeSlot Module
+10 Schedule Module
+11 AI Integration
+
+
+Python AI Engine
+
+Python will run:
+
+Genetic Algorithm
+Constraint checking
+Schedule optimization
+
+
+
+Final Backend Step
+Spring Boot ↔ AI Engine Integration
+
+Architecture you defined earlier:
+
+React Dashboard
+        ↓
+Spring Boot Backend
+        ↓
+Python FastAPI AI Engine
+        ↓
+Genetic Algorithm + ML
+        ↓
+MongoDB
+
+Spring Boot will:
+
+Fetch teachers / rooms / subjects / timeslots from MongoDB
+
+Send them to the AI engine
+
+
+commands to run in this:-
+(.venv) PS C:\Users\mange\Desktop\Mini Project\smart-timetable-system\smarttimetablesystem\ai-engine>
+1)cd ai-engine(if not already in this folder use this command)
+      then
+2)uvicorn api.main:app --reload --port 5000
+
+General commands:-
+Ctrl + Alt + Shift + S ---- for config purpose
+
+cd..   -------- helps to go back
+
+mvn spring-boot:run----- to run springboot
+
+.\.venv\Scripts\activate------ to activate venv
+
+Hot link (frontend):-
+ Local:   http://localhost:5173/
+
+ npm run dev------- to run frontend using the above hot link
+
+API test for timetable generation :-
+
+
+{
+  "teachers": [
+    {
+      "id": "T1",
+      "name": "Dr Shilpa Shinde",
+      "department": "Computer Engineering"
+    },
+    {
+      "id": "T2",
+      "name": "Prof Preet Kaur",
+      "department": "Computer Engineering"
+    },
+    {
+      "id": "T3",
+      "name": "Dr Prajakta Papalkar",
+      "department": "EXTC"
+    }
+  ],
+
+  "subjects": [
+    {
+      "id": "S1",
+      "name": "Artificial Intelligence",
+      "branch": "CE",
+      "type": "THEORY"
+    },
+    {
+      "id": "S2",
+      "name": "DBMS",
+      "branch": "CE",
+      "type": "THEORY"
+    },
+    {
+      "id": "S3",
+      "name": "Python Lab",
+      "branch": "CE",
+      "type": "LAB"
+    },
+    {
+      "id": "S4",
+      "name": "Embedded Systems",
+      "branch": "EXTC",
+      "type": "THEORY"
+    },
+    {
+      "id": "S5",
+      "name": "IoT Lab",
+      "branch": "EXTC",
+      "type": "LAB"
+    }
+  ],
+
+  "rooms": [
+    {
+      "id": "R1",
+      "roomNumber": "505",
+      "type": "CLASSROOM"
+    },
+    {
+      "id": "R2",
+      "roomNumber": "511",
+      "type": "CLASSROOM"
+    },
+    {
+      "id": "R3",
+      "roomNumber": "LAB-1",
+      "type": "LAB"
+    },
+    {
+      "id": "R4",
+      "roomNumber": "LAB-2",
+      "type": "LAB"
+    }
+  ],
+
+  "timeslots": [
+    { "id": "MON-1" },
+    { "id": "MON-2" },
+    { "id": "MON-3" },
+    { "id": "MON-4" },
+    { "id": "TUE-1" },
+    { "id": "TUE-2" },
+    { "id": "TUE-3" },
+    { "id": "TUE-4" },
+    { "id": "WED-1" },
+    { "id": "WED-2" }
+  ]
+}

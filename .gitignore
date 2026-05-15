@@ -1,0 +1,25 @@
+# Frontend
+smart-timetable-frontend/node_modules/
+smart-timetable-frontend/dist/
+smart-timetable-frontend/*.log
+smart-timetable-frontend/*.local
+
+# Backend
+smarttimetablesystem/target/
+smarttimetablesystem/.mvn/wrapper/maven-wrapper.jar
+smarttimetablesystem/.apt_generated
+smarttimetablesystem/.classpath
+smarttimetablesystem/.factorypath
+smarttimetablesystem/.project
+smarttimetablesystem/.settings
+smarttimetablesystem/.springBeans
+smarttimetablesystem/.sts4-cache
+
+# IDE
+.idea/
+.vscode/
+*.iws
+*.iml
+*.ipr
+.DS_Store
+*.sw?

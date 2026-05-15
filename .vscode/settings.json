@@ -1,0 +1,16 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.project.sourcePaths": ["src/main/java", "src/test/java"],
+  "java.project.outputPath": "target",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.jdt.ls.lombokSupport.enabled": true,
+  "spring-boot.ls.java.home": "",
+  "editor.tabSize": 4,
+  "files.exclude": {
+    "**/.idea": true,
+    "**/*.iml": true,
+    "**/target": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  }
+}

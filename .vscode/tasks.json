@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Maven: Clean & Build",
+      "type": "shell",
+      "command": ".\\mvnw.cmd clean compile -DskipTests",
+      "options": {
+        "cwd": "${workspaceFolder}/smarttimetablesystem"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Maven: Run Spring Boot",
+      "type": "shell",
+      "command": ".\\mvnw.cmd spring-boot:run",
+      "options": {
+        "cwd": "${workspaceFolder}/smarttimetablesystem"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Maven: Run Tests",
+      "type": "shell",
+      "command": ".\\mvnw.cmd test",
+      "options": {
+        "cwd": "${workspaceFolder}/smarttimetablesystem"
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Python: Start AI Engine",
+      "type": "shell",
+      "command": "cd ai-engine; ..\\.venv\\Scripts\\activate; uvicorn api.main:app --reload --port 5000",
+      "options": {
+        "cwd": "${workspaceFolder}/smarttimetablesystem"
+      },
+      "group": "build",
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Maven: Package JAR",
+      "type": "shell",
+      "command": ".\\mvnw.cmd clean package -DskipTests",
+      "options": {
+        "cwd": "${workspaceFolder}/smarttimetablesystem"
+      },
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

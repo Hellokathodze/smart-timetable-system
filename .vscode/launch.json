@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot - Backend",
+      "request": "launch",
+      "mainClass": "com.smarttimetablesystem.SmarttimetablesystemApplication",
+      "projectName": "smarttimetablesystem",
+      "cwd": "${workspaceFolder}/smarttimetablesystem",
+      "args": "",
+      "envFile": "${workspaceFolder}/smarttimetablesystem/.env"
+    },
+    {
+      "type": "debugpy",
+      "name": "Python AI Engine",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "api.main:app",
+        "--reload",
+        "--port",
+        "5000"
+      ],
+      "cwd": "${workspaceFolder}/smarttimetablesystem/ai-engine",
+      "jinja": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full Stack (Backend + AI)",
+      "configurations": [
+        "Spring Boot - Backend",
+        "Python AI Engine"
+      ]
+    }
+  ]
+}

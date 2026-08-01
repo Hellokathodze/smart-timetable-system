@@ -32,7 +32,7 @@ const Sidebar = () => {
     return (
         <div className="w-64 h-screen bg-gray-900 text-white flex flex-col">
             <div className="p-5 border-b border-gray-800">
-                <h1 className="text-xl font-bold tracking-tight">Dy Patil</h1>
+                <h1 className="text-xl font-bold tracking-tight">University TT</h1>
                 <div className="mt-2 flex items-center gap-2">
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${roleBadge[role] || "bg-gray-700 text-gray-400"}`}>{role || "—"}</span>
                     <span className="text-xs text-gray-500 truncate">{email}</span>

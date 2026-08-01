@@ -77,14 +77,12 @@ def _get_break_timeslot_ids(break_map):
 def _expand_subjects_for_full_week(subjects, schedulable_timeslots):
     """
     Ensure exactly TEACHING_PER_DAY * num_days entries PER DIVISION.
-    Duplicates get unique IDs so GA treats them as separate events.
-    Multi-class aware: expansion happens per division independently.
+    Multi-class aware: expansion happens per (branch, division) independently.
     """
     days = sorted(set(ts["id"].split("-")[0] for ts in schedulable_timeslots))
     num_days = len(days)
     per_division_needed = TEACHING_PER_DAY * num_days
 
-    # Group subjects by (branch, division)
     by_class = {}
     for s in subjects:
         key = (s.get("branch", "UNKNOWN"), s.get("division", "A"))
@@ -98,10 +96,8 @@ def _expand_subjects_for_full_week(subjects, schedulable_timeslots):
             all_expanded.extend(expanded[:per_division_needed])
             continue
 
-        # Start with originals
         expanded = [dict(s) for s in class_subjects]
 
-        # Duplicate round-robin with unique IDs (per class)
         dup_counter = 1
         idx = 0
         while len(expanded) < per_division_needed:
@@ -121,8 +117,8 @@ def _expand_subjects_for_full_week(subjects, schedulable_timeslots):
 
 def _fitness_worker(args):
     _suppress_warnings()
-    chromosome, break_map = args
-    return calculate_fitness(chromosome, break_map)
+    chromosome, break_map, room_types, subject_types = args
+    return calculate_fitness(chromosome, break_map, room_types, subject_types)
 
 
 def generate_timetable(data):
@@ -132,17 +128,17 @@ def generate_timetable(data):
     rooms = data["rooms"]
     timeslots = data["timeslots"]
 
+    # Build type maps for Phase 2.5 lab-room constraint
+    room_types = {r["id"]: r.get("type", "CLASSROOM") for r in rooms}
+    subject_types = {s["id"]: s.get("type", "THEORY") for s in subjects}
+
     # Generate break slots
     break_map = _generate_break_map(timeslots)
     break_ids = _get_break_timeslot_ids(break_map)
     print("🔴 BREAK SLOTS:", break_map)
 
-    # Filter out break timeslots
-    schedulable_timeslots = [
-        ts for ts in timeslots if ts["id"] not in break_ids
-    ]
+    schedulable_timeslots = [ts for ts in timeslots if ts["id"] not in break_ids]
 
-    # Expand subjects: TEACHING_PER_DAY * num_days entries per (branch, division)
     expanded_subjects = _expand_subjects_for_full_week(subjects, schedulable_timeslots)
     num_divisions = len(set(
         (s.get("branch", "UNKNOWN"), s.get("division", "A"))
@@ -163,7 +159,7 @@ def generate_timetable(data):
     for generation in range(GENERATIONS):
 
         with ThreadPoolExecutor(initializer=_suppress_warnings) as executor:
-            args_list = [(chrom, break_map) for chrom in population]
+            args_list = [(chrom, break_map, room_types, subject_types) for chrom in population]
             fitness_values = list(executor.map(_fitness_worker, args_list))
             for chromosome, fitness in zip(population, fitness_values):
                 chromosome.fitness = fitness
@@ -171,25 +167,32 @@ def generate_timetable(data):
         population.sort(key=lambda c: c.fitness, reverse=True)
 
         best_fitness = population[0].fitness
-        fitness_history.append(best_fitness)  # ✅ record BEFORE early-stop check
+        fitness_history.append(best_fitness)
         print("Generation:", generation, "Best Fitness:", best_fitness)
 
-        # ✅ Early stopping
         if best_fitness >= 100:
             print("✅ PERFECT SOLUTION FOUND — STOPPING EARLY")
             break
 
-        # Elitism (top 5)
         new_population = [copy.deepcopy(c) for c in population[:5]]
 
         while len(new_population) < POPULATION_SIZE:
             parent1 = tournament_selection(population)
             parent2 = tournament_selection(population)
             child = crossover(parent1, parent2)
-            child = repair_chromosome(child, teachers, rooms, schedulable_timeslots)
+            child = repair_chromosome(
+                child, teachers, rooms, schedulable_timeslots,
+                subject_types=subject_types, room_types=room_types
+            )
             if random.random() < MUTATION_RATE:
-                mutate(child, teachers, rooms, schedulable_timeslots)
-            child = repair_chromosome(child, teachers, rooms, schedulable_timeslots)
+                mutate(
+                    child, teachers, rooms, schedulable_timeslots,
+                    subject_types=subject_types, room_types=room_types
+                )
+            child = repair_chromosome(
+                child, teachers, rooms, schedulable_timeslots,
+                subject_types=subject_types, room_types=room_types
+            )
             new_population.append(child)
 
         population = new_population
@@ -210,7 +213,7 @@ def generate_timetable(data):
 
     # Final evaluation
     with ThreadPoolExecutor(initializer=_suppress_warnings) as executor:
-        args_list = [(chrom, break_map) for chrom in population]
+        args_list = [(chrom, break_map, room_types, subject_types) for chrom in population]
         fitness_values = list(executor.map(_fitness_worker, args_list))
         for chromosome, fitness in zip(population, fitness_values):
             chromosome.fitness = fitness
@@ -218,7 +221,6 @@ def generate_timetable(data):
     population.sort(key=lambda c: c.fitness, reverse=True)
     best = population[0]
 
-    # Build response — strip _dupN suffixes
     timetable = []
     for gene in best.genes:
         original_id = gene.subjectId.split("_dup")[0]

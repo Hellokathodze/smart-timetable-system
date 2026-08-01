@@ -264,3 +264,4 @@ timetable_model.pkl
 # !requirements.txt
 # !package.json
 # !pom.xml
+*.pyc

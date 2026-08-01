@@ -1,5 +1,3 @@
-from ml.predictor import predict_demand
-
 TEACHING_PER_DAY = 5  # Target: 5 classes per day
 
 
@@ -12,7 +10,6 @@ class FitnessCalculator:
     def calculate(self):
 
         penalty = 0
-        reward = 0
 
         teacher_timeslot = {}
         room_timeslot = {}
@@ -85,20 +82,6 @@ class FitnessCalculator:
             td_key = (teacher, day)
             teacher_day_load[td_key] = teacher_day_load.get(td_key, 0) + 1
 
-            # -------------------------
-            # ML Demand Prediction (reward only)
-            # -------------------------
-            try:
-                prediction = predict_demand(
-                    timeslot=slot_number,
-                    teacher_load=teacher_day_load.get(td_key, 1),
-                    room_utilization=0.7
-                )
-                if prediction == 1:
-                    reward += 1
-            except Exception:
-                pass
-
         # -------------------------
         # Teacher per-day overload penalty
         # -------------------------
@@ -118,7 +101,7 @@ class FitnessCalculator:
         # -------------------------
         # Fitness calculation
         # -------------------------
-        fitness = 100 - penalty + reward
+        fitness = 100 - penalty
 
         if fitness < 0:
             fitness = 0

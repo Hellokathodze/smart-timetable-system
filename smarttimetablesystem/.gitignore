@@ -1,33 +1,277 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# ============================================================================
+# SMART TIMETABLE SYSTEM - COMPLETE .gitignore
+# ============================================================================
+# This file specifies which files and directories Git should ignore.
+# Last updated: Phase 1 - ML removal
+# ============================================================================
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# ============================================================================
+# FRONTEND (Vue/React/Node)
+# ============================================================================
+smart-timetable-frontend/node_modules/
+smart-timetable-frontend/dist/
+smart-timetable-frontend/dist-ssr/
+smart-timetable-frontend/*.log
+smart-timetable-frontend/*.local
+smart-timetable-frontend/.cache/
+smart-timetable-frontend/.DS_Store
+smart-timetable-frontend/npm-debug.log*
+smart-timetable-frontend/yarn-debug.log*
+smart-timetable-frontend/yarn-error.log*
+smart-timetable-frontend/pnpm-debug.log*
+smart-timetable-frontend/.eslintcache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# ============================================================================
+# BACKEND (Java/Maven)
+# ============================================================================
+smarttimetablesystem/target/
+smarttimetablesystem/.mvn/wrapper/maven-wrapper.jar
+smarttimetablesystem/.apt_generated
+smarttimetablesystem/.classpath
+smarttimetablesystem/.factorypath
+smarttimetablesystem/.project
+smarttimetablesystem/.settings
+smarttimetablesystem/.springBeans
+smarttimetablesystem/.sts4-cache
+smarttimetablesystem/build/
+smarttimetablesystem/out/
+smarttimetablesystem/dist/
+
+# ============================================================================
+# AI ENGINE (Python) — recursive rules for all subfolders
+# ============================================================================
+# Python bytecode caches (recursive — catches all subdirectories)
+smarttimetablesystem/ai-engine/**/__pycache__/
+smarttimetablesystem/ai-engine/**/*.pyc
+smarttimetablesystem/ai-engine/**/*.pyo
+smarttimetablesystem/ai-engine/**/*.pyd
+
+# Legacy shallow rules (kept for safety)
+smarttimetablesystem/ai-engine/__pycache__/
+smarttimetablesystem/ai-engine/*.pyc
+smarttimetablesystem/ai-engine/*.pyo
+smarttimetablesystem/ai-engine/*.pyd
+
+# Python environment
+smarttimetablesystem/ai-engine/.Python
+smarttimetablesystem/ai-engine/env/
+smarttimetablesystem/ai-engine/venv/
+smarttimetablesystem/ai-engine/.venv/
+smarttimetablesystem/ai-engine/ENV/
+
+# Python build artifacts
+smarttimetablesystem/ai-engine/build/
+smarttimetablesystem/ai-engine/develop-eggs/
+smarttimetablesystem/ai-engine/dist/
+smarttimetablesystem/ai-engine/downloads/
+smarttimetablesystem/ai-engine/eggs/
+smarttimetablesystem/ai-engine/.eggs/
+smarttimetablesystem/ai-engine/lib/
+smarttimetablesystem/ai-engine/lib64/
+smarttimetablesystem/ai-engine/parts/
+smarttimetablesystem/ai-engine/sdist/
+smarttimetablesystem/ai-engine/var/
+smarttimetablesystem/ai-engine/wheels/
+smarttimetablesystem/ai-engine/*.egg-info/
+smarttimetablesystem/ai-engine/.installed.cfg
+smarttimetablesystem/ai-engine/*.egg
+smarttimetablesystem/ai-engine/MANIFEST
+smarttimetablesystem/ai-engine/.pytest_cache/
+smarttimetablesystem/ai-engine/.coverage
+smarttimetablesystem/ai-engine/htmlcov/
+smarttimetablesystem/ai-engine/.tox/
+smarttimetablesystem/ai-engine/.hypothesis/
+
+# ============================================================================
+# IDEs & EDITORS
+# ============================================================================
+# VS Code
+.vscode/
+.vscode-settings.json
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
 *.iml
+*.iws
 *.ipr
+*.iml
+out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Eclipse
+.classpath
+.project
+.c9/
+*.launch
+.settings/
+.factorypath
+
+# PyCharm
+.idea/
+*.py[cod]
+__pycache__/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Atom
+.atom/
+.apm/
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+*~
+.swp
+.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================================================
+# OPERATING SYSTEMS
+# ============================================================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+.directory
+
+# ============================================================================
+# ENVIRONMENT & CONFIGURATION
+# ============================================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.example
+.env.defaults
+pyenv.cfg
+.python-version
+.ruby-version
+
+# ============================================================================
+# LOGS & TEMPORARY FILES
+# ============================================================================
+*.log
+*.logs
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.rej
+*~
+
+# ============================================================================
+# BUILD & DIST
+# ============================================================================
+dist/
+dist-ssr/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+out/
+.next/
+.nuxt/
+.cache/
+.vuepress/dist/
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
 
-### VS Code ###
-.vscode/settings.local.json
+# ============================================================================
+# DEPENDENCY MANAGEMENT
+# ============================================================================
+# npm
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Maven
+.m2/
+.mvn/
+
+# Python
+*.egg-info/
+dist/
+build/
+*.whl
+
+# ============================================================================
+# DATABASE & LOCAL DATA
+# ============================================================================
+*.db
+*.sqlite
+*.sqlite3
+*.mdb
+*.accdb
+/local.db
+
+# ============================================================================
+# OS-SPECIFIC & MISC
+# ============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================================================
+# PROJECT-SPECIFIC IGNORES
+# ============================================================================
+# Temporary diffs
+*.diff
+*.patch
+
+# Backup files from conflicts
+*.orig
+*.rej
+
+# Generated files
+fitness_graph.png
+timetable_model.pkl
+
+# Local test data
+/test_data/
+/temp/
+/tmp/
+
+# ============================================================================
+# KEEP THESE (!) - Don't ignore in gitignore
+# ============================================================================
+# Uncomment to NOT ignore specific files:
+# !.gitkeep
+# !.env.example
+# !requirements.txt
+# !package.json
+# !pom.xml

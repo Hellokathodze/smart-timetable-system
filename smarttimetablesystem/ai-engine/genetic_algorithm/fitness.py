@@ -1,4 +1,4 @@
-TEACHING_PER_DAY = 5  # Target: 5 classes per day
+TEACHING_PER_DAY = 5  # Target: 5 classes per day PER DIVISION
 
 
 class FitnessCalculator:
@@ -13,18 +13,19 @@ class FitnessCalculator:
 
         teacher_timeslot = {}
         room_timeslot = {}
-        slot_used = {}  # track which timeslots are used (for division conflicts)
+        class_slot_used = {}  # keyed by (division, timeslot) — one division can't have two subjects in same slot
 
         teacher_day_load = {}
 
-        # ✅ Track classes per DAY (single group — all subjects go to CE_A)
-        day_count = {}
+        # Track classes per (division, day) — each division should have TEACHING_PER_DAY classes/day
+        division_day_count = {}
 
         for gene in self.genes:
 
             teacher = gene.teacherId
             room = gene.roomId
             timeslot = gene.timeslotId
+            division = gene.division  # e.g. "CE-A", "IT-B"
 
             # -------------------------
             # Parse timeslot
@@ -44,12 +45,13 @@ class FitnessCalculator:
                 penalty += 15
 
             # -------------------------
-            # Track day count (all subjects = one group)
+            # Track division-day count (per-division, not global)
             # -------------------------
-            day_count[day] = day_count.get(day, 0) + 1
+            dd_key = (division, day)
+            division_day_count[dd_key] = division_day_count.get(dd_key, 0) + 1
 
             # -------------------------
-            # Teacher conflict (same teacher, same timeslot)
+            # Teacher conflict (same teacher, same timeslot — regardless of division)
             # -------------------------
             key = (teacher, timeslot)
             if key in teacher_timeslot:
@@ -58,7 +60,7 @@ class FitnessCalculator:
                 teacher_timeslot[key] = True
 
             # -------------------------
-            # Room conflict
+            # Room conflict (same room, same timeslot — regardless of division)
             # -------------------------
             key = (room, timeslot)
             if key in room_timeslot:
@@ -67,33 +69,33 @@ class FitnessCalculator:
                 room_timeslot[key] = True
 
             # -------------------------
-            # Timeslot collision (two subjects in same slot)
-            # Since all subjects go to one class (CE division A),
-            # no two subjects can occupy the same timeslot
+            # Class-slot collision (same division, same timeslot)
+            # Different divisions CAN share a timeslot (in different rooms with different teachers).
+            # Same division CANNOT have two subjects in the same timeslot.
             # -------------------------
-            if timeslot in slot_used:
+            cs_key = (division, timeslot)
+            if cs_key in class_slot_used:
                 penalty += 15
             else:
-                slot_used[timeslot] = True
+                class_slot_used[cs_key] = True
 
             # -------------------------
-            # Teacher per-day load tracking
+            # Teacher per-day load tracking (across all divisions)
             # -------------------------
             td_key = (teacher, day)
             teacher_day_load[td_key] = teacher_day_load.get(td_key, 0) + 1
 
         # -------------------------
-        # Teacher per-day overload penalty
+        # Teacher per-day overload penalty (soft)
         # -------------------------
         for (teacher, day), load in teacher_day_load.items():
             if load > 4:
                 penalty += (load - 4) * 3
 
         # -------------------------
-        # 5-SLOT PER DAY RULE (soft)
-        # All subjects are one group — check total classes per day
+        # 5-SLOT PER DAY RULE (soft) — per division per day
         # -------------------------
-        for day, count in day_count.items():
+        for (division, day), count in division_day_count.items():
             if count != TEACHING_PER_DAY:
                 deviation = abs(count - TEACHING_PER_DAY)
                 penalty += deviation * 5

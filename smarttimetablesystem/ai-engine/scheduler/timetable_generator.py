@@ -24,7 +24,7 @@ from scheduler.chromosome_repair import repair_chromosome
 
 
 POPULATION_SIZE = 30
-GENERATIONS = 80
+GENERATIONS = 334
 MUTATION_RATE = 0.15
 
 BREAK_WINDOW_START = 11

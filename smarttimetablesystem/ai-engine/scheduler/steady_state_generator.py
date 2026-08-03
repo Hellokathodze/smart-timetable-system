@@ -46,7 +46,7 @@ from scheduler.chromosome_repair import repair_chromosome
 # Parameters (matched to Standard GA for fair comparison)
 # -------------------------------------------------
 POPULATION_SIZE = 30
-MAX_EVALUATIONS = 2400   # = POPULATION_SIZE * 80 (matches Standard GA's 80 generations)
+MAX_EVALUATIONS = 10000   # = POPULATION_SIZE * 334 (matches Standard GA's 334 generations)
 MUTATION_RATE = 0.15
 
 BREAK_WINDOW_START = 11

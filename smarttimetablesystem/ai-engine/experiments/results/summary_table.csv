@@ -1,0 +1,13 @@
+algorithm,size,n,distance_to_feasibility_mean,distance_to_feasibility_std,soft_violations_mean,soft_violations_std,valid_solutions_pct,perfect_solutions_pct,evaluations_mean,evaluations_std,runtime_mean_s,runtime_std_s
+memetic_canonical,Large,30,32.4,2.25,2.5,1.94,0.0,0.0,10011.0,0.0,4.654,1.842
+memetic_canonical,Medium,30,15.6,1.83,1.9,1.52,0.0,0.0,10011.0,0.0,2.746,1.057
+memetic_canonical,Small,30,0.0,0.0,0.0,0.0,100.0,100.0,1831.3,513.1,0.183,0.053
+memetic_domain_aware,Large,30,30.97,2.7,2.2,1.85,0.0,0.0,10011.0,0.0,4.617,1.795
+memetic_domain_aware,Medium,30,14.5,1.87,1.37,1.38,0.0,0.0,10011.0,0.0,2.724,1.053
+memetic_domain_aware,Small,30,0.0,0.0,0.0,0.0,100.0,100.0,1738.0,489.7,0.175,0.044
+standard,Large,30,31.43,3.09,1.77,1.65,0.0,0.0,10050.0,0.0,27.219,10.341
+standard,Medium,30,14.5,1.72,1.13,1.33,0.0,0.0,10050.0,0.0,14.884,5.836
+standard,Small,30,0.0,0.0,0.0,0.0,100.0,100.0,379.0,214.2,0.113,0.06
+steady_state,Large,30,30.8,2.75,1.93,1.78,0.0,0.0,10000.0,0.0,30.473,10.862
+steady_state,Medium,30,14.37,1.73,1.17,0.91,0.0,0.0,10000.0,0.0,16.241,5.758
+steady_state,Small,30,0.0,0.0,0.0,0.0,100.0,100.0,401.7,294.4,0.116,0.076

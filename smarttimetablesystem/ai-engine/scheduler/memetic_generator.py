@@ -52,7 +52,7 @@ from scheduler.chromosome_repair import repair_chromosome
 # Parameters (matched to other GAs for fair comparison)
 # -------------------------------------------------
 POPULATION_SIZE = 30
-MAX_EVALUATIONS = 2400
+MAX_EVALUATIONS = 10000
 MUTATION_RATE = 0.15
 ELITE_SIZE = 5
 

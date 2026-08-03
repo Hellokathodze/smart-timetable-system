@@ -265,3 +265,4 @@ timetable_model.pkl
 # !package.json
 # !pom.xml
 *.pyc
+smarttimetablesystem/ai-engine/fitness_graph.png
